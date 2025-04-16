@@ -1,7 +1,7 @@
-// Global variables for DCE and gaze data logging EyeMind
+// Global variables for Discrete Choice Experiment (DCE) and gaze tracking
 const questions = [
   "Question 1: Which treatment option do you prefer? (Option A: Rapid onset with higher side effect risk; Option B: Slower onset with fewer side effects)",
-  "Question 2: For a new therapy, choose Option A: 50% chance for mood improvement within 2 weeks with a 30% chance of adverse effects, or Option B: 30% chance for improvement in 4 weeks with only a 10% chance?",
+  "Question 2: For a new therapy, choose Option A: 50% chance for mood improvement within 2 weeks with a 30% chance of adverse effects, or Option B: 30% chance for improvement in 4 weeks with a 10% chance?",
   "Question 3: Do you value long-term benefits (Option A) more than immediate symptom relief (Option B)?"
 ];
 let currentQuestion = 0;
@@ -28,45 +28,26 @@ const gazeOutput = document.getElementById("gaze-output");
 // Dynamic recommendations element
 const dynamicRecDiv = document.getElementById("dynamic-rec");
 
-// Tab navigation: update breadcrumb display
-const tabs = document.querySelectorAll(".tab-btn");
-const breadcrumbActive = document.getElementById("breadcrumb-active");
-
-tabs.forEach(btn => {
-  btn.addEventListener("click", function () {
-    // Update breadcrumb text with current tab name
-    breadcrumbActive.textContent = btn.textContent;
-  });
-});
-
-// Initialize Bootstrap tooltips
-const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-const tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-  return new bootstrap.Tooltip(tooltipTriggerEl);
-});
+// Initialize Bootstrap tooltips already done in HTML via data attributes
 
 // Start webcam feed
 navigator.mediaDevices.getUserMedia({ video: true })
-  .then(stream => {
-    video.srcObject = stream;
-  })
-  .catch(err => {
-    console.error("Error accessing webcam:", err);
-  });
+  .then(stream => { video.srcObject = stream; })
+  .catch(err => { console.error("Error accessing webcam:", err); });
 
-// Load first DCE question
+// Load first question
 function loadQuestion() {
   if (currentQuestion < questions.length) {
     questionText.textContent = questions[currentQuestion];
   } else {
-    questionContainer.classList.add("hidden");
-    completionDiv.classList.remove("hidden");
+    questionContainer.classList.add("d-none");
+    completionDiv.classList.remove("d-none");
     // Automatically compute dynamic recommendations when experiment is finished
     computeDynamicRecommendations();
   }
 }
 
-// Event listeners for choice buttons
+// Event listener for discrete choice buttons
 choiceButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     const choice = btn.getAttribute("data-choice");
@@ -81,23 +62,21 @@ choiceButtons.forEach(btn => {
   });
 });
 
-// Simulated gaze tracking: capture mouse movement over the video container
+// Simulated gaze tracking via mouse move over video container
 const videoContainer = document.getElementById("video-container");
 videoContainer.addEventListener("mousemove", (event) => {
   const rect = videoContainer.getBoundingClientRect();
   const x = event.clientX - rect.left;
   const y = event.clientY - rect.top;
   
-  // Draw gaze circle on canvas
+  // Draw a red circle as simulated gaze point
   overlayCtx.clearRect(0, 0, overlay.width, overlay.height);
   overlayCtx.beginPath();
   overlayCtx.arc(x, y, 10, 0, 2 * Math.PI);
   overlayCtx.fillStyle = "rgba(255, 0, 0, 0.6)";
   overlayCtx.fill();
   
-  if (!gazeStartTime) {
-    gazeStartTime = Date.now();
-  }
+  if (!gazeStartTime) { gazeStartTime = Date.now(); }
   const relativeTime = (Date.now() - gazeStartTime) / 1000;
   gazeLog.push({
     timestamp: new Date().toISOString(),
@@ -109,34 +88,32 @@ videoContainer.addEventListener("mousemove", (event) => {
   gazeInfo.textContent = `Simulated Gaze: X = ${x.toFixed(0)}, Y = ${y.toFixed(0)}`;
 });
 
-// When "View Results & Interpretations" is clicked, show results tab
+// Show results and charts when "View Results & Interpretations" button is clicked
 showResultsBtn.addEventListener("click", () => {
-  // Switch to Results tab by triggering Bootstrap tab click
-  document.querySelector('[data-tab="results"]').click();
+  // Activate Results tab using Bootstrap's tab system
+  const triggerEl = document.querySelector('#results-tab');
+  const tab = new bootstrap.Tab(triggerEl);
+  tab.show();
   
   // Output raw discrete choice responses
   let respText = "";
-  responses.forEach(r => {
-    respText += `${r.timestamp} | ${r.question} -> ${r.choice}\n`;
-  });
+  responses.forEach(r => { respText += `${r.timestamp} | ${r.question} -> ${r.choice}\n`; });
   responsesOutput.textContent = respText;
   
-  // Output raw gaze log data
+  // Output raw gaze data
   let gazeText = "";
-  gazeLog.forEach(log => {
-    gazeText += `${log.timestamp} | Time: ${log.time.toFixed(2)}s | X: ${log.x}, Y: ${log.y}\n`;
-  });
+  gazeLog.forEach(log => { gazeText += `${log.timestamp} | Time: ${log.time.toFixed(2)}s | X: ${log.x}, Y: ${log.y}\n`; });
   gazeOutput.textContent = gazeText;
   
-  // Generate charts
+  // Generate charts for DCE responses and gaze trajectory
   createDCEChart();
   createGazeChart();
   
-  // Display static interpretations for Results tab (layman's language)
+  // Display static interpretations in layman's language
   displayInterpretations();
 });
 
-// Create a bar chart for discrete choice responses
+// Bar chart for discrete choice responses
 function createDCEChart() {
   const countA = responses.filter(r => r.choice === "A").length;
   const countB = responses.filter(r => r.choice === "B").length;
@@ -161,7 +138,7 @@ function createDCEChart() {
   });
 }
 
-// Create a line chart for gaze trajectory over time
+// Line chart for gaze data (X and Y positions over time)
 function createGazeChart() {
   const times = gazeLog.map(log => log.time.toFixed(2));
   const xValues = gazeLog.map(log => log.x);
@@ -202,7 +179,7 @@ function createGazeChart() {
   });
 }
 
-// Display educational interpretations for Results tab
+// Display educational interpretations for raw results
 function displayInterpretations() {
   const dceInterpretationDiv = document.getElementById("dce-interpretation");
   const gazeInterpretationDiv = document.getElementById("gaze-interpretation");
@@ -210,38 +187,38 @@ function displayInterpretations() {
   let dceInterp = "Discrete Choice Responses indicate the following:\n";
   dceInterp += "• Option A selections suggest a preference for rapid treatment onset or long-term benefit despite increased risks.\n";
   dceInterp += "• Option B selections indicate a preference for safer, gentler treatments with fewer side effects.\n";
-  dceInterp += "Overall, these responses reflect your priorities when facing mental health treatment choices.";
+  dceInterp += "These choices highlight your priorities when considering mental health treatments.";
   
-  let gazeInterp = "Gaze Trajectory Interpretation:\n";
-  gazeInterp += "The line chart reveals how your simulated gaze (via mouse movement) changed over the course of the experiment.\n";
-  gazeInterp += "Stable gaze points indicate focused attention, while rapid shifts may suggest uncertainty or exploration.\n";
-  gazeInterp += "This data helps clinicians understand how carefully you review treatment information.";
+  let gazeInterp = "Gaze Trajectory Analysis:\n";
+  gazeInterp += "The chart shows how your gaze (simulated by mouse movement) varied during the experiment.\n";
+  gazeInterp += "Steady, focused points suggest careful review, while rapid changes may indicate uncertainty or quick scanning.\n";
+  gazeInterp += "Such patterns can help clinicians understand the depth of your information processing.";
   
   dceInterpretationDiv.textContent = dceInterp;
   gazeInterpretationDiv.textContent = gazeInterp;
 }
 
-// Simple dynamic recommendations engine
+// Simple dynamic recommendations engine based on responses
 function computeDynamicRecommendations() {
-  let totalResponses = responses.length;
+  let total = responses.length;
   let countA = responses.filter(r => r.choice === "A").length;
   let recText = "";
-  if (totalResponses === 0) {
+  if (total === 0) {
     recText = "No responses recorded. Please complete the experiment.";
   } else {
-    let ratioA = countA / totalResponses;
+    let ratioA = countA / total;
     if (ratioA >= 0.66) {
-      recText = "Dynamic Recommendation: Your responses indicate a strong preference for rapid onset or long-term benefits despite side effects. Consider exploring therapies known for sustained improvements.";
+      recText = "Recommendation: Your responses indicate a strong preference for rapid treatment or long-term benefits. Consider exploring therapies known for sustained, robust outcomes.";
     } else if (ratioA <= 0.33) {
-      recText = "Dynamic Recommendation: Your choices suggest you prefer treatments with lower side effects, even if the benefits are less pronounced. A gentler approach may be advisable.";
+      recText = "Recommendation: Your responses suggest you favour gentler treatments with fewer side effects. A conservative therapeutic approach may be advisable.";
     } else {
-      recText = "Dynamic Recommendation: Your responses are balanced. It might be beneficial to discuss with your clinician options that offer a compromise between rapid effectiveness and minimal side effects.";
+      recText = "Recommendation: Your choices reflect a balanced view. It may be beneficial to discuss options that offer a compromise between immediate relief and long-term benefits.";
     }
   }
   dynamicRecDiv.textContent = recText;
 }
 
-// Download full results as a text file
+// Download full experiment results as a text file
 document.getElementById("download-btn").addEventListener("click", () => {
   let output = "Discrete Choice Responses:\n";
   responses.forEach(r => { output += `${r.timestamp} | ${r.question} -> ${r.choice}\n`; });
@@ -257,5 +234,5 @@ document.getElementById("download-btn").addEventListener("click", () => {
   URL.revokeObjectURL(url);
 });
 
-// Initialize by loading the first question
+// Initialize experiment by loading the first question
 loadQuestion();
