@@ -1,4 +1,4 @@
-// Global variables for Discrete Choice Experiment (DCE) and gaze data logging
+// Global variables for DCE and gaze data logging
 const questions = [
   "Question 1: Which treatment option do you prefer? (Option A: Rapid onset with higher side effect risk; Option B: Slower onset with fewer side effects)",
   "Question 2: For a new therapy, choose Option A: 50% chance for mood improvement within 2 weeks with a 30% chance of adverse effects, or Option B: 30% chance for improvement in 4 weeks with only a 10% chance?",
