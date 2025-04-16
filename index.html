@@ -2,68 +2,154 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hybrid Clinical Assessment – MindEye</title>
+  <title>MindEye – Hybrid Clinical Assessment Demo</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Include Chart.js for plotting -->
+  <!-- Google Fonts: Roboto -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+  <!-- Chart.js for plotting -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header>
-    <h1>Hybrid Clinical Assessment Demo</h1>
+    <h1>MindEye – Hybrid Clinical Assessment Demo</h1>
+    <nav id="tabs">
+      <button class="tab-btn active" data-tab="intro">Introduction</button>
+      <button class="tab-btn" data-tab="instructions">Instructions</button>
+      <button class="tab-btn" data-tab="experiment">Experiment</button>
+      <button class="tab-btn" data-tab="results">Results</button>
+      <button class="tab-btn" data-tab="policy">Policy Meaning</button>
+      <button class="tab-btn" data-tab="dynamic">Dynamic Recommendations</button>
+    </nav>
   </header>
   
-  <!-- Video & Eye-Tracking Simulation Section -->
-  <section id="video-section">
-    <h2>Live Video &amp; Eye-Tracking Simulation</h2>
-    <div id="video-container">
-      <video id="video" autoplay></video>
-      <canvas id="overlay"></canvas>
-    </div>
-    <p id="gaze-info">Move your mouse inside the video area to simulate gaze tracking.</p>
-  </section>
-  
-  <!-- Discrete Choice Experiment (DCE) Section -->
-  <section id="dce-section">
-    <h2>Discrete Choice Experiment for Mental Health</h2>
-    <div id="instruction">
-      <p>This demonstration presents a series of treatment choice questions designed for mental health assessment. For instance, imagine a new therapy with trade-offs between speed of onset, side effect profile, and long-term benefits. Please review each question carefully and choose the option that best aligns with your treatment priorities.</p>
-    </div>
-    <div id="question-container">
-      <p id="question-text"></p>
-      <div id="buttons">
-        <button class="choice-btn" data-choice="A">Option A</button>
-        <button class="choice-btn" data-choice="B">Option B</button>
+  <!-- Tab Content -->
+  <main>
+    <!-- Introduction Tab -->
+    <section id="intro" class="tab-content active">
+      <h2>Project Context &amp; Benefits</h2>
+      <p>
+        The MindEye project is an innovative hybrid clinical assessment tool designed for mental health care.
+        By integrating artificial intelligence, eye-tracking, and behavioural modelling through discrete choice experiments (DCEs),
+        MindEye objectively captures how individuals process treatment information and what their preferences are.
+        In simple terms, the tool uses your webcam (or in our demo, your mouse movements) to simulate where you “look”
+        when you review treatment options, and it asks you to choose between realistic scenarios. The resulting data—both your choices
+        and how you looked at each option—helps clinicians understand your priorities.
+      </p>
+      <p>
+        The benefits are manifold. For patients, the tool provides a personalised assessment that captures not only symptoms but also your decision style.
+        For clinicians, it offers a new, objective method to complement traditional assessments. For policy makers,
+        integrating such tools into care may lead to better-targeted interventions, potentially reducing treatment costs and improving outcomes.
+      </p>
+    </section>
+    
+    <!-- Instructions Tab -->
+    <section id="instructions" class="tab-content">
+      <h2>How to Use MindEye</h2>
+      <p>
+        In this demo, you will first see a live video feed (using your webcam) with an overlay, which simulates real-time eye-tracking.
+        Since actual eye-tracking hardware is not used here, we mimic this by capturing mouse movements over the video area.
+      </p>
+      <p>
+        Next, the tool will present you with a series of discrete choice questions about mental health treatment scenarios.
+        These questions are designed to gauge your treatment preferences—for example, whether you would choose a treatment that acts quickly
+        but has more side effects or one that acts more slowly but is gentler.
+      </p>
+      <p>
+        Your responses and simulated gaze data will be recorded and later summarised in graphs. The results are interpreted in layman’s terms,
+        explaining what your choices and visual focus imply about your priorities.
+      </p>
+    </section>
+    
+    <!-- Experiment Tab -->
+    <section id="experiment" class="tab-content">
+      <h2>Discrete Choice Experiment &amp; Gaze Tracking</h2>
+      <div id="video-section">
+        <div id="video-container">
+          <video id="video" autoplay></video>
+          <canvas id="overlay"></canvas>
+        </div>
+        <p id="gaze-info">Move your mouse over the video area to simulate your gaze tracking.</p>
       </div>
-    </div>
-    <div id="completion" class="hidden">
-      <p>Thank you for completing the experiment!</p>
-      <button id="show-results-btn">Show Results &amp; Interpretations</button>
-    </div>
-  </section>
+      <div id="dce-section">
+        <div id="question-container">
+          <p id="question-text"></p>
+          <div id="buttons">
+            <button class="choice-btn" data-choice="A">Option A</button>
+            <button class="choice-btn" data-choice="B">Option B</button>
+          </div>
+        </div>
+        <div id="completion" class="hidden">
+          <p>Thank you for completing the experiment!</p>
+          <button id="show-results-btn">View Results &amp; Interpretations</button>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Results Tab -->
+    <section id="results" class="tab-content hidden">
+      <h2>Results Overview</h2>
+      <div id="results-summary">
+        <h3>Discrete Choice Responses Summary</h3>
+        <canvas id="dce-chart" width="400" height="200"></canvas>
+        <div id="dce-interpretation" class="interpretation"></div>
+      </div>
+      <div id="gaze-results">
+        <h3>Gaze Trajectory Over Time</h3>
+        <canvas id="gaze-chart" width="600" height="300"></canvas>
+        <div id="gaze-interpretation" class="interpretation"></div>
+      </div>
+      <div id="raw-data">
+        <h3>Raw Data</h3>
+        <h4>Discrete Choice Responses:</h4>
+        <pre id="responses-output"></pre>
+        <h4>Simulated Gaze Log:</h4>
+        <pre id="gaze-output"></pre>
+      </div>
+      <button id="download-btn">Download Full Results</button>
+    </section>
+    
+    <!-- Policy Meaning Tab -->
+    <section id="policy" class="tab-content hidden">
+      <h2>Meaning for Policy &amp; Clinical Practice</h2>
+      <p>
+        The results from MindEye can inform policy by highlighting how patients value different treatment outcomes. In our simulation:
+      </p>
+      <p>
+        • If a patient consistently opts for a treatment with a rapid onset despite higher risks (Option A), this suggests a strong desire to address symptoms immediately, even if there are trade-offs in side effect profiles.
+      </p>
+      <p>
+        • Conversely, if a patient chooses a slower onset with minimal side effects (Option B) when given the opportunity, it indicates a preference for quality-of-life and long-term well-being.
+      </p>
+      <p>
+        By aggregating these individual preferences, policy makers can better design healthcare services and reimbursement models that favour patient-centred care.
+        For instance, if a significant portion of patients prefers long-term benefit over immediate relief, funding may be better allocated to therapies with durable outcomes.
+      </p>
+      <p>
+        Moreover, the objective eye-tracking data helps confirm whether patients are thoroughly engaging with treatment information. A high degree of visual focus on critical data suggests that patients are making informed choices,
+        which can be used to advocate for decision-support tools in clinical practice.
+      </p>
+    </section>
+    
+    <!-- Dynamic Recommendations Tab -->
+    <section id="dynamic" class="tab-content hidden">
+      <h2>Dynamic Recommendations for Clinicians</h2>
+      <p>
+        The ultimate goal of MindEye is not only to capture patient preferences but also to generate dynamic recommendations that inform clinical decisions.
+      </p>
+      <p>
+        Based on both the recorded discrete choices and the gaze patterns, the AI engine can suggest tailored treatment options. For example,
+        if the data indicates that a patient’s attention is strongly drawn to long-term benefits and they repeatedly choose options that favour sustained improvement,
+        the system may recommend treatment strategies known for durable outcomes. In contrast, if a patient consistently opts for rapid relief despite higher side effects,
+        the recommendation might lean toward a more aggressive or fast-acting intervention.
+      </p>
+      <p>
+        These dynamic recommendations can be used by clinicians as a second opinion. They bring objective insight into a patient's decision process,
+        support shared decision-making, and may ultimately lead to more personalised and effective mental health care. As further clinical trials are conducted,
+        the recommendation engine will become more refined and further validated.
+      </p>
+    </section>
+  </main>
   
-  <!-- Results Section -->
-  <section id="results-section" class="hidden">
-    <h2>Experiment Results</h2>
-    <div id="results-summary">
-      <h3>Discrete Choice Responses Summary</h3>
-      <canvas id="dce-chart" width="400" height="200"></canvas>
-      <div id="dce-interpretation" class="interpretation"></div>
-    </div>
-    <div id="gaze-results">
-      <h3>Gaze Log Trajectory Over Time</h3>
-      <canvas id="gaze-chart" width="600" height="300"></canvas>
-      <div id="gaze-interpretation" class="interpretation"></div>
-    </div>
-    <div id="raw-data">
-      <h3>Raw Data</h3>
-      <h4>Discrete Choice Responses:</h4>
-      <pre id="responses-output"></pre>
-      <h4>Simulated Gaze Log:</h4>
-      <pre id="gaze-output"></pre>
-    </div>
-    <button id="download-btn">Download Full Results</button>
-  </section>
-
   <script src="script.js"></script>
 </body>
 </html>
