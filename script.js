@@ -1,4 +1,4 @@
-/* Advanced Demo Script for Hybrid Clinical Assessment Demo */
+/* MindEye Demo Script for Hybrid Clinical Assessment Demo */
 
 // Sample discrete choice questions with mental health context
 const questions = [
