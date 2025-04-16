@@ -2,25 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hybrid Assessment Demo</title>
+  <title>Hybrid Clinical Assessment Demo – Advanced</title>
   <link rel="stylesheet" href="style.css">
+  <!-- Include Chart.js for plotting -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header>
     <h1>Hybrid Clinical Assessment Demo</h1>
   </header>
   
+  <!-- Video & Eye-Tracking Simulation Section -->
   <section id="video-section">
-    <h2>Live Video and Gaze Proxy</h2>
+    <h2>Live Video &amp; Eye-Tracking Simulation</h2>
     <div id="video-container">
       <video id="video" autoplay></video>
       <canvas id="overlay"></canvas>
     </div>
-    <p id="gaze-info">Move your mouse on the video area to simulate gaze tracking.</p>
+    <p id="gaze-info">Move your mouse inside the video area to simulate gaze tracking.</p>
   </section>
   
+  <!-- Discrete Choice Experiment (DCE) Section -->
   <section id="dce-section">
-    <h2>Discrete Choice Experiment</h2>
+    <h2>Discrete Choice Experiment for Mental Health</h2>
+    <div id="instruction">
+      <p>This demonstration presents a series of treatment choice questions designed for mental health assessment. For instance, imagine a new therapy with trade-offs between speed of onset, side effect profile, and long-term benefits. Please review each question carefully and choose the option that best aligns with your treatment priorities.</p>
+    </div>
     <div id="question-container">
       <p id="question-text"></p>
       <div id="buttons">
@@ -30,8 +37,31 @@
     </div>
     <div id="completion" class="hidden">
       <p>Thank you for completing the experiment!</p>
-      <button id="download-btn">Download Results</button>
+      <button id="show-results-btn">Show Results &amp; Interpretations</button>
     </div>
+  </section>
+  
+  <!-- Results Section -->
+  <section id="results-section" class="hidden">
+    <h2>Experiment Results</h2>
+    <div id="results-summary">
+      <h3>Discrete Choice Responses Summary</h3>
+      <canvas id="dce-chart" width="400" height="200"></canvas>
+      <div id="dce-interpretation" class="interpretation"></div>
+    </div>
+    <div id="gaze-results">
+      <h3>Gaze Log Trajectory Over Time</h3>
+      <canvas id="gaze-chart" width="600" height="300"></canvas>
+      <div id="gaze-interpretation" class="interpretation"></div>
+    </div>
+    <div id="raw-data">
+      <h3>Raw Data</h3>
+      <h4>Discrete Choice Responses:</h4>
+      <pre id="responses-output"></pre>
+      <h4>Simulated Gaze Log:</h4>
+      <pre id="gaze-output"></pre>
+    </div>
+    <button id="download-btn">Download Full Results</button>
   </section>
 
   <script src="script.js"></script>
