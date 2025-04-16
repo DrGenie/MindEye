@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>MindEye – Hybrid Clinical Assessment Demo</title>
+  <title>MindEye – Hybrid Clinical Assessment</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Google Fonts: Roboto -->
@@ -15,8 +15,8 @@
 <body>
   <header class="bg-primary text-white p-3">
     <div class="container">
-      <h1 class="mb-0">MindEye – Hybrid Clinical Assessment Demo</h1>
-      <!-- Breadcrumb Navigation for Tabs -->
+      <h1 class="mb-0">MindEye – Hybrid Clinical Assessment</h1>
+      <!-- Breadcrumb Navigation -->
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb mb-0">
           <li class="breadcrumb-item active" id="breadcrumb-active">Introduction</li>
@@ -27,24 +27,24 @@
   
   <!-- Nav Tabs -->
   <div class="container mt-3">
-    <ul class="nav nav-tabs" id="tabList" role="tablist">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
-        <button class="nav-link active tab-btn" data-bs-toggle="tab" data-tab="intro" data-bs-toggle="tooltip" title="Overview of project context and benefits" type="button">Introduction</button>
+        <button class="nav-link active" id="intro-tab" data-bs-toggle="tab" data-bs-target="#intro" type="button" role="tab" aria-controls="intro" aria-selected="true" data-bs-toggle="tooltip" title="Overview of project context and benefits">Introduction</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link tab-btn" data-bs-toggle="tab" data-tab="instructions" data-bs-toggle="tooltip" title="Learn how to use MindEye" type="button">Instructions</button>
+        <button class="nav-link" id="instructions-tab" data-bs-toggle="tab" data-bs-target="#instructions" type="button" role="tab" aria-controls="instructions" aria-selected="false" data-bs-toggle="tooltip" title="Learn how to use MindEye">Instructions</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link tab-btn" data-bs-toggle="tab" data-tab="experiment" data-bs-toggle="tooltip" title="Participate in the experiment" type="button">Experiment</button>
+        <button class="nav-link" id="experiment-tab" data-bs-toggle="tab" data-bs-target="#experiment" type="button" role="tab" aria-controls="experiment" aria-selected="false" data-bs-toggle="tooltip" title="Participate in the experiment">Experiment</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link tab-btn" data-bs-toggle="tab" data-tab="results" data-bs-toggle="tooltip" title="Review your results and charts" type="button">Results</button>
+        <button class="nav-link" id="results-tab" data-bs-toggle="tab" data-bs-target="#results" type="button" role="tab" aria-controls="results" aria-selected="false" data-bs-toggle="tooltip" title="Review your results and charts">Results</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link tab-btn" data-bs-toggle="tab" data-tab="policy" data-bs-toggle="tooltip" title="See what the results mean for policy and clinical practice" type="button">Policy Meaning</button>
+        <button class="nav-link" id="policy-tab" data-bs-toggle="tab" data-bs-target="#policy" type="button" role="tab" aria-controls="policy" aria-selected="false" data-bs-toggle="tooltip" title="See what the results mean for policy and clinical practice">Policy Meaning</button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link tab-btn" data-bs-toggle="tab" data-tab="dynamic" data-bs-toggle="tooltip" title="View dynamic recommendations" type="button">Dynamic Recommendations</button>
+        <button class="nav-link" id="dynamic-tab" data-bs-toggle="tab" data-bs-target="#dynamic" type="button" role="tab" aria-controls="dynamic" aria-selected="false" data-bs-toggle="tooltip" title="View dynamic recommendations">Dynamic Recommendations</button>
       </li>
     </ul>
   </div>
@@ -52,7 +52,7 @@
   <!-- Tab Content -->
   <div class="container tab-content mt-4">
     <!-- Introduction Tab -->
-    <div class="tab-pane fade show active" id="intro">
+    <div class="tab-pane fade show active" id="intro" role="tabpanel" aria-labelledby="intro-tab">
       <h2>Project Context &amp; Benefits</h2>
       <p>
         MindEye is an innovative hybrid clinical assessment tool designed for mental health care.
@@ -66,7 +66,7 @@
     </div>
     
     <!-- Instructions Tab -->
-    <div class="tab-pane fade" id="instructions">
+    <div class="tab-pane fade" id="instructions" role="tabpanel" aria-labelledby="instructions-tab">
       <h2>How to Use MindEye</h2>
       <p>
         You will see a live video feed along with an overlay that simulates eye-tracking. (We mimic eye tracking by capturing your mouse movements over the video.)
@@ -75,16 +75,16 @@
         Next, a series of discrete choice questions will be presented. These are designed to reflect realistic mental health treatment trade-offs, such as:
       </p>
       <ul>
-        <li><strong>Immediate Relief vs. Long-term Benefits:</strong> Choosing between fast-acting treatments with higher side effects (Option A) versus slower onset therapy with improved tolerability (Option B).</li>
-        <li><strong>Risk vs. Comfort:</strong> Evaluating the trade-off between a treatment with a higher chance of symptom improvement but significant risks versus a safer, less effective alternative.</li>
+        <li><strong>Immediate Relief vs. Long-term Benefits:</strong> Choose between fast-acting treatments with higher side effects (Option A) versus slower onset therapy with improved tolerability (Option B).</li>
+        <li><strong>Risk vs. Comfort:</strong> Evaluate whether you prefer a treatment with a higher chance of improvement but significant risks or a gentler alternative.</li>
       </ul>
       <p>
-        Your responses, along with your simulated gaze data, will later be visualised to provide insights into your decision-making process.
+        Your responses and simulated gaze data will later be visualised to provide insights into your decision-making process.
       </p>
     </div>
     
     <!-- Experiment Tab -->
-    <div class="tab-pane fade" id="experiment">
+    <div class="tab-pane fade" id="experiment" role="tabpanel" aria-labelledby="experiment-tab">
       <h2>Experiment: Discrete Choice and Gaze Tracking</h2>
       <div id="video-section" class="mb-3">
         <div id="video-container" class="mx-auto">
@@ -109,8 +109,8 @@
     </div>
     
     <!-- Results Tab -->
-    <div class="tab-pane fade" id="results">
-      <h2>Experiment Results Overview</h2>
+    <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
+      <h2>Results Overview</h2>
       <div id="results-summary">
         <h3>Discrete Choice Responses Summary</h3>
         <canvas id="dce-chart" width="400" height="200"></canvas>
@@ -132,34 +132,31 @@
     </div>
     
     <!-- Policy Meaning Tab -->
-    <div class="tab-pane fade" id="policy">
+    <div class="tab-pane fade" id="policy" role="tabpanel" aria-labelledby="policy-tab">
       <h2>Meaning for Policy &amp; Clinical Practice</h2>
       <p>
         The data from MindEye help explain patient preferences in a clear, objective way:
       </p>
       <ul>
-        <li>If you consistently choose Option A, it indicates a preference for rapid treatment or long-term benefits, even if it comes with higher risk of side effects.</li>
-        <li>If you choose Option B more often, you might be more inclined towards safer treatments with fewer risks.</li>
+        <li>If you consistently choose Option A, it indicates a preference for rapid treatment or long-term benefits, even if it comes with higher risks.</li>
+        <li>If you choose Option B more often, you might be more inclined towards safer treatments with fewer side effects.</li>
       </ul>
       <p>
-        For clinicians, these insights support more personalised treatment plans, while for policy makers, aggregate data could help shape health services that better match patient priorities.
+        For clinicians, these insights support more personalised treatment plans; for policy makers, aggregate data can help shape health services that better align with patient priorities.
       </p>
     </div>
     
     <!-- Dynamic Recommendations Tab -->
-    <div class="tab-pane fade" id="dynamic">
+    <div class="tab-pane fade" id="dynamic" role="tabpanel" aria-labelledby="dynamic-tab">
       <h2>Dynamic Recommendations</h2>
-      <p>
-        Our simple dynamic recommendations engine examines your responses and gaze data to tailor treatment suggestions:
-      </p>
       <div id="dynamic-rec" class="alert alert-info"></div>
       <p>
-        In the future, a machine learning model would refine these recommendations in real time.
+        The recommendations below are generated based on your discrete choices and simulated gaze data. As you use MindEye in clinical settings, such dynamic feedback can help guide treatment decisions in real time.
       </p>
     </div>
   </div>
-
-  <!-- Bootstrap JS (includes popper) -->
+  
+  <!-- Bootstrap JS (includes Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Custom JS -->
   <script src="script.js"></script>
