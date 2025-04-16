@@ -1,6 +1,6 @@
 /* MindEye Demo Script for Hybrid Clinical Assessment Demo */
 
-// Sample discrete choice questions with mental health context
+// Discrete choice questions with mental health context
 const questions = [
   "Question 1: Which treatment option do you prefer? (Option A: Rapid onset with higher side effect risk; Option B: Slower onset with minimal side effects)",
   "Question 2: For a new therapy, do you choose Option A: A 50% chance for mood improvement within 2 weeks with a 30% risk of adverse effects, or Option B: A 30% chance for improvement in 4 weeks with only a 10% risk?",
