@@ -1,82 +1,46 @@
-/* Global Styless */
+/* Custom styles override Bootstrap where necessary */
+
+/* Global Styles */
 body {
   font-family: 'Roboto', sans-serif;
-  margin: 0;
-  padding: 0 20px;
   background-color: #f0f2f5;
   color: #333;
 }
 
-header {
-  background-color: #004e8a;
-  color: #fff;
-  padding: 10px 20px;
-  text-align: center;
-}
-
+/* Header Styles */
 header h1 {
-  margin: 0;
   font-weight: 500;
 }
 
-/* Navigation Tabs */
-#tabs {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-  flex-wrap: wrap;
+header nav .breadcrumb {
+  background-color: transparent;
+  padding: 0;
 }
 
-.tab-btn {
-  background-color: #0078d4;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  margin: 2px;
+/* Tab Navigation Customization */
+.nav-tabs .nav-link {
   font-size: 16px;
-  cursor: pointer;
-  border-radius: 4px;
   transition: background-color 0.3s ease;
 }
 
-.tab-btn:hover {
-  background-color: #005a9e;
-}
-
-.tab-btn.active {
+.nav-tabs .nav-link.active {
+  font-weight: 500;
   background-color: #003b6f;
+  border-color: #003b6f;
 }
 
-/* Main Content */
-main {
-  max-width: 900px;
-  margin: 20px auto;
-}
-
+/* Tab Content Styling */
 .tab-content {
-  display: none;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 6px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+  margin-top: 20px;
 }
 
-.tab-content.active {
-  display: block;
-}
-
-/* Section Styles */
-section h2 {
-  border-bottom: 2px solid #0078d4;
-  padding-bottom: 5px;
-}
-
+/* Video Container */
 #video-container {
   position: relative;
   width: 640px;
   height: 480px;
-  margin: 0 auto 10px auto;
-  border: 1px solid #ccc;
+  margin: 0 auto;
+  border: 2px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -90,62 +54,16 @@ video, canvas {
   border-radius: 8px;
 }
 
-#dce-section {
-  text-align: center;
-  margin-top: 20px;
-}
-
-#question-container {
-  margin-top: 20px;
-}
-
-#question-text {
-  font-size: 18px;
-  margin-bottom: 20px;
-}
-
+/* Experiment Section Buttons */
 #buttons .choice-btn {
-  background-color: #0078d4;
-  border: none;
-  color: #fff;
-  padding: 10px 20px;
-  margin: 0 10px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  margin: 5px;
 }
 
-#buttons .choice-btn:hover {
-  background-color: #005a9e;
-}
-
-.hidden {
-  display: none;
-}
-
-/* Results Section */
-#results-section pre {
-  background: #efefef;
-  padding: 10px;
-  border-radius: 4px;
-  overflow-x: auto;
-}
-
+/* Interpretations Box */
 .interpretation {
-  background: #e8f5e9;
+  background-color: #e8f5e9;
   border: 1px solid #a5d6a7;
-  padding: 10px;
-  margin-top: 10px;
   border-radius: 5px;
-}
-
-/* Additional styles for professional appearance */
-h2, h3, h4 {
-  color: #004e8a;
-}
-
-p {
-  line-height: 1.6;
-  margin: 10px 0;
+  padding: 10px;
+  font-size: 14px;
 }
