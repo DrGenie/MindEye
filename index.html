@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hybrid Assessment Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Hybrid Clinical Assessment Demo</h1>
+  </header>
+  
+  <section id="video-section">
+    <h2>Live Video and Gaze Proxy</h2>
+    <div id="video-container">
+      <video id="video" autoplay></video>
+      <canvas id="overlay"></canvas>
+    </div>
+    <p id="gaze-info">Move your mouse on the video area to simulate gaze tracking.</p>
+  </section>
+  
+  <section id="dce-section">
+    <h2>Discrete Choice Experiment</h2>
+    <div id="question-container">
+      <p id="question-text"></p>
+      <div id="buttons">
+        <button class="choice-btn" data-choice="A">Option A</button>
+        <button class="choice-btn" data-choice="B">Option B</button>
+      </div>
+    </div>
+    <div id="completion" class="hidden">
+      <p>Thank you for completing the experiment!</p>
+      <button id="download-btn">Download Results</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
