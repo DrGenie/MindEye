@@ -1,4 +1,4 @@
-/* Custom styless override Bootstrap where necessary */
+/* Custom styles override Bootstrap where necessary */
 
 /* Global Styles */
 body {
@@ -12,12 +12,12 @@ header h1 {
   font-weight: 500;
 }
 
-header nav .breadcrumb {
+header .breadcrumb {
   background-color: transparent;
   padding: 0;
 }
 
-/* Tab Navigation Customization */
+/* Navigation Tabs Customization */
 .nav-tabs .nav-link {
   font-size: 16px;
   transition: background-color 0.3s ease;
@@ -30,8 +30,12 @@ header nav .breadcrumb {
 }
 
 /* Tab Content Styling */
-.tab-content {
+.tab-pane {
   margin-top: 20px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 /* Video Container */
@@ -54,7 +58,7 @@ video, canvas {
   border-radius: 8px;
 }
 
-/* Experiment Section Buttons */
+/* DCE Section Buttons */
 #buttons .choice-btn {
   margin: 5px;
 }
